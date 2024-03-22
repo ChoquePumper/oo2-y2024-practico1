@@ -14,6 +14,10 @@ public class Participante {
 		this.puntos = 0;
 	}
 
+	public String getNombre() {
+		return nombre;
+	}
+
 	public void agregarPuntos(int puntos) {
 		this.puntos += puntos;
 	}

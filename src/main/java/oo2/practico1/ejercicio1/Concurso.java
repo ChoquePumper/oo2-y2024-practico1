@@ -9,7 +9,8 @@ import java.util.Objects;
 
 public class Concurso {
 
-	private String id;
+	private final String id;
+	private final Persistencia persistencia;
 	private List<Participante> participantes;
 	private LocalDateTime fechaDeInicioInscripcion;
 	private LocalDateTime fechaDeFinInscripcion;
@@ -17,8 +18,9 @@ public class Concurso {
 	// Cache
 	private LocalDateTime cacheFechaLimitePrimerDia;
 
-	public Concurso(String id, LocalDateTime fechaDeInicio, LocalDateTime fechaDeFin, ProveedorFecha proveedor_fecha) {
+	public Concurso(String id, Persistencia persistencia, LocalDateTime fechaDeInicio, LocalDateTime fechaDeFin, ProveedorFecha proveedor_fecha) {
 		this.id = procesarString(id);
+		this.persistencia = Objects.requireNonNull(persistencia);
 		this.fechaDeInicioInscripcion = fechaDeInicio;
 		this.fechaDeFinInscripcion = fechaDeFin;
 		this.participantes = new ArrayList<Participante>();
@@ -48,7 +50,9 @@ public class Concurso {
 		if (enPrimerDia(fecha))
 			participante.agregarPuntos(+10);
 
-		//TODO: Enviar mail aquí? Sí. (si puede grabar)
+		RegistroAConcurso registro = new RegistroAConcurso(fecha, participante.getNombre(), this.id);
+		this.persistencia.registrarInscripcion(registro.generarLinea());
+		//TODO: Enviar mail aquí?
 	}
 
 	boolean enPrimerDia(LocalDateTime fecha) {
