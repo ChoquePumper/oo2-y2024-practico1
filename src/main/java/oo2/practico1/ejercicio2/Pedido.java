@@ -30,7 +30,7 @@ public class Pedido {
 		this.propina = opciones_propina.get(clave_propina);
 	}
 
-	public float calcularDescuento() {
+	float calcularDescuento() {
 		// Si no hay tarjeta, no hay descuento.
 		if (tarjeta == null)
 			return 0;
@@ -40,7 +40,7 @@ public class Pedido {
 	}
 
 	// Suma el costo total de la lista de comidas
-	public float calcularCostoSinDescuento() {
+	float calcularCostoSinDescuento() {
 		float suma_costo = 0;
 		ArrayList<Comida> lista = new ArrayList<Comida>();
 		lista.addAll(lista_comidas.soloBebidas());
@@ -54,7 +54,7 @@ public class Pedido {
 		return calcularCostoSinDescuento() - calcularDescuento() + calcularPropina();
 	}
 
-	public float calcularPropina() {
+	float calcularPropina() {
 		// La propina es obligatoria
 		if (propina == null)
 			// TODO: Crear una subclase de Exception
