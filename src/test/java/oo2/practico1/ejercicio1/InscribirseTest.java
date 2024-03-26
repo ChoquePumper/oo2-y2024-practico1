@@ -16,7 +16,7 @@ class TestFechas {
 		LocalDateTime fecha_inicio = LocalDateTime.of(2023, 01, 23, 0, 0, 0);
 		LocalDateTime fecha_fin = LocalDateTime.of(2023, 01, 30, 0, 0, 0);
 
-		Concurso concurso = new Concurso("ConcursoTestInscripción", fecha_inicio, fecha_fin, proveedor_fecha);
+		Concurso concurso = new Concurso("ConcursoTestInscripción", new SinPersistencia(), fecha_inicio, fecha_fin, proveedor_fecha);
 		for (int dia = 23; dia <= 29; dia++)
 			assertEquals(concurso.enElPeriodoDeInscripcion(LocalDateTime.of(2023, 01, dia, 0, 0, 0)), true);
 		assertEquals(concurso.enElPeriodoDeInscripcion(LocalDateTime.of(2023, 01, 30, 0, 0, 0)), false);
@@ -33,7 +33,7 @@ class TestFechas {
 		LocalDateTime otraFecha = LocalDateTime.of(2023, 01, 27, 0, 0, 0);
 		LocalDateTime fechaAntes = LocalDateTime.of(2023, 01, 21, 0, 0, 0);
 
-		Concurso concurso = new Concurso("ConcursoTestPrimerDia", fecha_inicio, fecha_fin, proveedor_fecha);
+		Concurso concurso = new Concurso("ConcursoTestPrimerDia", new SinPersistencia(), fecha_inicio, fecha_fin, proveedor_fecha);
 		assertEquals(concurso.enPrimerDia(fecha1erDia), true);
 		assertEquals(concurso.enPrimerDia(otraFecha), false);
 		assertEquals(concurso.enPrimerDia(fechaAntes), false);

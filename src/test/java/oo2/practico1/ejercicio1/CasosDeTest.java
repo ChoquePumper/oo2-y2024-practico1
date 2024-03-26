@@ -17,7 +17,7 @@ class CasosDeTest {
 		FechaTest proveedor_fecha = new FechaTest();
 		LocalDateTime fecha_inicio = LocalDateTime.of(2023, 01, 18, 0, 0, 0);
 		LocalDateTime fecha_fin = LocalDateTime.of(2023, 01, 26, 0, 0, 0);
-		Concurso concurso = new Concurso("ConcursoTestInscripción", fecha_inicio, fecha_fin, proveedor_fecha);
+		Concurso concurso = new Concurso("ConcursoTestInscripción", new SinPersistencia(), fecha_inicio, fecha_fin, proveedor_fecha);
 
 		record RecordInscribir(Participante participante, LocalDateTime fecha, boolean resultadoEsperado) {
 
@@ -54,7 +54,7 @@ class CasosDeTest {
 		FechaTest proveedor_fecha = new FechaTest();
 		LocalDateTime fecha_inicio = LocalDateTime.of(2023, 01, 18, 0, 0, 0);
 		LocalDateTime fecha_fin = LocalDateTime.of(2023, 01, 26, 0, 0, 0);
-		Concurso concurso = new Concurso("ConcursoTestPrimerDia", fecha_inicio, fecha_fin, proveedor_fecha);
+		Concurso concurso = new Concurso("ConcursoTestPrimerDia", new SinPersistencia(), fecha_inicio, fecha_fin, proveedor_fecha);
 
 		Participante participante_en_1er_dia = new Participante("En Primer Dia");
 		Participante otro_participante = new Participante("Otro");
@@ -85,7 +85,7 @@ class CasosDeTest {
 		FechaTest proveedor_fecha = new FechaTest();
 		LocalDateTime fecha_inicio = LocalDateTime.of(2023, 01, 18, 0, 0, 0);
 		LocalDateTime fecha_fin = LocalDateTime.of(2023, 01, 26, 0, 0, 0);
-		Concurso concurso = new Concurso("ConcursoTestFuera", fecha_inicio, fecha_fin, proveedor_fecha);
+		Concurso concurso = new Concurso("ConcursoTestFuera", new SinPersistencia(), fecha_inicio, fecha_fin, proveedor_fecha);
 
 		record RecordInscribir(Participante participante, LocalDateTime fecha, boolean resultadoEsperado) {
 
