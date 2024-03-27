@@ -1,16 +1,22 @@
 package oo2.practico1.ejercicio2;
 
+import oo2.practico1.ejercicio1.ProveedorFecha;
+
 import java.util.ArrayList;
 
 public class Pedido {
 
+	private final ProveedorFecha proveedorFecha;
+	private final Persistencia persistencia;
 	private ListaComidas lista_comidas;
 	private TarjetaDeCredito tarjeta;
 
 	private OpcionesPropina opciones_propina;
 	private Propina propina;
 
-	public Pedido() {
+	public Pedido(ProveedorFecha proveedorFecha, Persistencia persistencia) {
+		this.proveedorFecha = proveedorFecha;
+		this.persistencia = persistencia;
 		this.tarjeta = null;
 		this.lista_comidas = new ListaComidas();
 		// this.seleccion_propina = crearListaDePropinas();
@@ -51,7 +57,11 @@ public class Pedido {
 	}
 
 	public float calcularCosto() {
-		return calcularCostoSinDescuento() - calcularDescuento() + calcularPropina();
+		float costo = calcularCostoSinDescuento() - calcularDescuento() + calcularPropina();
+
+		RegistroCostoCalculado registro = new RegistroCostoCalculado(proveedorFecha.hoy(), costo);
+		persistencia.registrarCalculoDeCosto(registro.generarLinea());
+		return costo;
 	}
 
 	float calcularPropina() {

@@ -2,12 +2,18 @@ package oo2.practico1.ejercicio2;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import oo2.practico1.ejercicio1.FechaTest;
+import oo2.practico1.ejercicio1.ProveedorFecha;
 import org.junit.jupiter.api.Test;
 
 class TestTarjetas {
 
-	Pedido crearPedido() {
-		Pedido pedido = new Pedido();
+	static Pedido crearPedido() {
+		return crearPedido(new FechaTest(), new SinPersistencia());
+	}
+
+	static Pedido crearPedido(ProveedorFecha proveedorFecha, Persistencia persistencia) {
+		Pedido pedido = new Pedido(proveedorFecha, persistencia);
 
 		pedido.agregarAlPedido(new Bebida("Bebida AAA", 30));
 		pedido.agregarAlPedido(new PlatoPrincipal("Plato AAA", 160));
