@@ -5,7 +5,7 @@ import java.util.Objects;
 
 public abstract class Comida {
 
-	private String nombre;
+	private final String nombre;
 	private float costo;
 
 	public Comida(String nombre, float costo) {
