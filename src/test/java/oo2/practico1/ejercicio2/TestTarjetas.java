@@ -1,7 +1,9 @@
 package oo2.practico1.ejercicio2;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 class TestTarjetas {
@@ -91,6 +93,20 @@ class TestTarjetas {
 		// 210 + 10.5 = 220.5
 		assertEquals(220.5f, pedido.calcularCosto());
 
+	}
+
+	@Test
+	@BeforeEach
+	void porcentaje() {
+		assertThrows(RuntimeException.class, () -> new Porcentaje(-1));
+		assertEquals("5,5%", new Porcentaje(5.5f).toString());
+		assertEquals("8,3%", new Porcentaje(8.3f).toString());
+		assertEquals("77,0%", new Porcentaje(77).toString());
+	}
+
+	@Test
+	void propina() {
+		assertEquals("Propina(5,0%)", new Propina(5).toString());
 	}
 
 }
