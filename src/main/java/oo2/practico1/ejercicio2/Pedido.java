@@ -60,7 +60,7 @@ public class Pedido {
 		float costo = calcularCostoSinDescuento() - calcularDescuento() + calcularPropina();
 
 		RegistroCostoCalculado registro = new RegistroCostoCalculado(proveedorFecha.hoy(), costo);
-		persistencia.registrarCalculoDeCosto(registro.generarLinea());
+		persistencia.registrarCalculoDeCosto(registro);
 		return costo;
 	}
 

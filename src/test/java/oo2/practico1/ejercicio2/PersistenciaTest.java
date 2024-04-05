@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 
 import java.io.StringWriter;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -13,12 +14,17 @@ class PersistenciaTest {
 		final StringWriter writer = new StringWriter();
 
 		@Override
-		public void registrarCalculoDeCosto(String lineaDeRegistro) {
-			writer.append(lineaDeRegistro).write("\n");
+		public void registrarCalculoDeCosto(RegistroCostoCalculado registro) {
+			writer.append(generarLinea(registro)).write("\n");
 		}
 
 		String getTexto() {
 			return writer.toString();
+		}
+
+		private String generarLinea(RegistroCostoCalculado registro) {
+			var formatoFecha = DateTimeFormatter.ofPattern("dd/MM/uuuu HH:mm:ss");
+			return String.join(" || ", registro.fechaHora().format(formatoFecha), Float.toString(registro.monto()));
 		}
 	}
 
