@@ -7,6 +7,7 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 public class MainEjercicio1 {
 	public static void main(String[] args) {
@@ -43,11 +44,16 @@ class Archivo implements Persistencia {
 	@Override
 	public void registrarInscripcion(RegistroAConcurso registro) {
 		try (FileWriter writer = new FileWriter(this.archivo, true);) {
-			writer.write(registro.generarLinea());
+			writer.write(generarLinea(registro));
 			writer.write("\n");
 		} catch (IOException e) {
 			throw new RuntimeException(e);
 		}
 
+	}
+
+	private String generarLinea(RegistroAConcurso registro) {
+		var formatoFecha = DateTimeFormatter.ofPattern("dd/MM/uuuu HH:mm:ss");
+		return String.format("%s, %s, %s", registro.fechaHora().format(formatoFecha), registro.idParticipante(), registro.idConcurso());
 	}
 }

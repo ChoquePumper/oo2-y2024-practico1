@@ -4,6 +4,7 @@ import oo2.practico1.ejercicio1.exceptions.FueraDeTerminoException;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -17,11 +18,16 @@ class PersistenciaTest {
 
 			@Override
 			public void registrarInscripcion(RegistroAConcurso registro) {
-				this.ultimaLinea = registro.generarLinea();
+				this.ultimaLinea = generarLinea(registro);
 			}
 
 			public String getLinea() {
 				return this.ultimaLinea;
+			}
+
+			private String generarLinea(RegistroAConcurso registro) {
+				var formatoFecha = DateTimeFormatter.ofPattern("dd/MM/uuuu HH:mm:ss");
+				return String.format("%s, %s, %s", registro.fechaHora().format(formatoFecha), registro.idParticipante(), registro.idConcurso());
 			}
 		};
 
