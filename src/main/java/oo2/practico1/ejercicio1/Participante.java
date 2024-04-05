@@ -3,6 +3,8 @@ package oo2.practico1.ejercicio1;
 import java.util.Objects;
 
 public class Participante {
+
+	private int id = 0;
 	private String nombre;
 	private int puntos;
 
@@ -12,6 +14,15 @@ public class Participante {
 			throw new IllegalArgumentException();
 		this.nombre = nombre;
 		this.puntos = 0;
+	}
+
+	public Participante(int id, String nombre) {
+		this(nombre);
+		this.id = id;
+	}
+
+	public int getId() {
+		return id;
 	}
 
 	public String getNombre() {
