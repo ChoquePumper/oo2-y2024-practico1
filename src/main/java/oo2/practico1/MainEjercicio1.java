@@ -1,9 +1,6 @@
 package oo2.practico1;
 
-import oo2.practico1.ejercicio1.Concurso;
-import oo2.practico1.ejercicio1.Participante;
-import oo2.practico1.ejercicio1.Persistencia;
-import oo2.practico1.ejercicio1.ProveedorFecha;
+import oo2.practico1.ejercicio1.*;
 import oo2.practico1.ejercicio1.exceptions.FueraDeTerminoException;
 
 import java.io.File;
@@ -44,9 +41,9 @@ class Archivo implements Persistencia {
 	}
 
 	@Override
-	public void registrarInscripcion(String lineaDeRegistro) {
+	public void registrarInscripcion(RegistroAConcurso registro) {
 		try (FileWriter writer = new FileWriter(this.archivo, true);) {
-			writer.write(lineaDeRegistro);
+			writer.write(registro.generarLinea());
 			writer.write("\n");
 		} catch (IOException e) {
 			throw new RuntimeException(e);

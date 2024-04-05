@@ -51,7 +51,7 @@ public class Concurso {
 			participante.agregarPuntos(+10);
 
 		RegistroAConcurso registro = new RegistroAConcurso(fecha, participante.getNombre(), this.id);
-		this.persistencia.registrarInscripcion(registro.generarLinea());
+		this.persistencia.registrarInscripcion(registro);
 		//TODO: Enviar mail aquí?
 	}
 
