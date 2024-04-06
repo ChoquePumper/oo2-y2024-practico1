@@ -7,11 +7,11 @@ public class FechaTest implements ProveedorFecha {
 
 	private LocalDateTime actual;
 
-	FechaTest() {
+	public FechaTest() {
 		setFecha(LocalDateTime.now());
 	}
 
-	FechaTest(LocalDateTime fecha) {
+	public FechaTest(LocalDateTime fecha) {
 		setFecha(fecha);
 	}
 
@@ -20,7 +20,7 @@ public class FechaTest implements ProveedorFecha {
 		return actual;
 	}
 
-	void setFecha(LocalDateTime fecha) {
+	public void setFecha(LocalDateTime fecha) {
 		Objects.requireNonNull(fecha);
 		this.actual = fecha;
 	}
