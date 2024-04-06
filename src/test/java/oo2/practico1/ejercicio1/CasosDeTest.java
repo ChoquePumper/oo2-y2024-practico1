@@ -1,13 +1,13 @@
 package oo2.practico1.ejercicio1;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.fail;
-
 import java.time.LocalDateTime;
 
 import org.junit.jupiter.api.Test;
 
 import oo2.practico1.ejercicio1.exceptions.FueraDeTerminoException;
+import org.junit.jupiter.api.function.Executable;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 class CasosDeTest {
 
@@ -100,5 +100,12 @@ class CasosDeTest {
 			proveedor_fecha.setFecha(inscripcion.fecha());
 			assertEquals(inscripcion.resultadoEsperado(), inscribir(concurso, inscripcion.participante()));
 		}
+	}
+
+	@Test
+	void participante() {
+		assertThrows(IllegalArgumentException.class, () -> new Participante(""));
+
+		assertEquals("Participante(Nombre, 0 puntos)", new Participante("Nombre").toString());
 	}
 }

@@ -2,7 +2,7 @@ package oo2.practico1.ejercicio2;
 
 public class Porcentaje {
 
-	private float porcentaje;
+	private final float porcentaje;
 
 	public Porcentaje(float porcentaje) {
 		if (porcentaje < 0)

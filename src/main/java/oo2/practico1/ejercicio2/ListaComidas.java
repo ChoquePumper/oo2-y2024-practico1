@@ -9,7 +9,7 @@ public class ListaComidas implements Iterable<Comida> {
 
 	//	private ArrayList<PlatoPrincipal> platos_principales;
 //	private ArrayList<Bebida> bebidas;
-	private ArrayList<Comida> comidas;
+	private final ArrayList<Comida> comidas;
 	// private Map<Propina, Float> seleccion_propina;
 
 	public ListaComidas() {

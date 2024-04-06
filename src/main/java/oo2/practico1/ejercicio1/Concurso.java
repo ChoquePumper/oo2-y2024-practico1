@@ -11,12 +11,12 @@ public class Concurso {
 
 	private final String id;
 	private final Persistencia persistencia;
-	private List<Participante> participantes;
-	private LocalDateTime fechaDeInicioInscripcion;
-	private LocalDateTime fechaDeFinInscripcion;
-	private ProveedorFecha proveedor_fecha;
+	private final List<Participante> participantes;
+	private final LocalDateTime fechaDeInicioInscripcion;
+	private final LocalDateTime fechaDeFinInscripcion;
+	private final ProveedorFecha proveedor_fecha;
 	// Cache
-	private LocalDateTime cacheFechaLimitePrimerDia;
+	private final LocalDateTime cacheFechaLimitePrimerDia;
 
 	public Concurso(String id, Persistencia persistencia, LocalDateTime fechaDeInicio, LocalDateTime fechaDeFin, ProveedorFecha proveedor_fecha) {
 		this.id = procesarString(id);
