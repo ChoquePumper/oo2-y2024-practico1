@@ -64,4 +64,9 @@ public class Concurso {
 		// fechaDeInicio <= fecha < fechaDeFin
 		return (!fecha.isBefore(fechaDeInicioInscripcion)) && fecha.isBefore(fechaDeFinInscripcion);
 	}
+
+	@Override
+	public String toString() {
+		return String.format("Concurso '%s', inscripción [%s, %s]", this.id, fechaDeInicioInscripcion, fechaDeFinInscripcion);
+	}
 }

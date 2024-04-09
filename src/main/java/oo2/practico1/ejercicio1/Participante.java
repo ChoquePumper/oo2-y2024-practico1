@@ -21,6 +21,11 @@ public class Participante {
 		this.id = id;
 	}
 
+	public Participante(int id, String nombre, int puntos) {
+		this(id, nombre);
+		this.puntos = puntos;
+	}
+
 	public int getId() {
 		return id;
 	}
