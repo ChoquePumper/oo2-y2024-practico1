@@ -21,8 +21,10 @@ public class MainTestJDBC {
 		ObjetoDAO<Concurso> daoConcurso =
 				new ConcursoDAOJDBC(prop.getProperty("jdbc.subprotocol"), prop.getProperty("jdbc.subname"));
 
-		mostrar(daoParticipante.find("1"));
-		mostrar(daoConcurso.find("IDTEST"));
+		daoConcurso.findAll().forEach(MainTestJDBC::mostrar);
+		daoParticipante.findAll().forEach(MainTestJDBC::mostrar);
+		//mostrar(daoParticipante.find("1"));
+		//mostrar(daoConcurso.find("IDTEST"));
 	}
 
 	private static void mostrar(Object obj) {

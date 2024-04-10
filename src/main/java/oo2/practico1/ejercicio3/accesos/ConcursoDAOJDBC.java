@@ -5,15 +5,31 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import oo2.practico1.ejercicio1.Concurso;
+import oo2.practico1.ejercicio1.Persistencia;
 
 public class ConcursoDAOJDBC extends ObjetoJDBC implements ObjetoDAO<Concurso> {
+
+	private Persistencia persistencia = (registro) -> {
+	}; // Nada
 
 	public ConcursoDAOJDBC(String subprotocolo, String subnombre) {
 		super(subprotocolo, subnombre);
 		//TODO Auto-generated constructor stub
+	}
+
+	/**
+	 * @param subprotocolo
+	 * @param subnombre
+	 * @param persistencia Setea un objeto de Persistencia para los objetos Concurso obtenidos.
+	 */
+	public ConcursoDAOJDBC(String subprotocolo, String subnombre, Persistencia persistencia) {
+		this(subprotocolo, subnombre);
+		this.persistencia = Objects.requireNonNull(persistencia);
 	}
 
 	@Override
@@ -55,8 +71,16 @@ public class ConcursoDAOJDBC extends ObjetoJDBC implements ObjetoDAO<Concurso> {
 
 	@Override
 	public List<Concurso> findAll() {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Unimplemented method 'findAll'");
+		List<Concurso> lista = new ArrayList<>();
+		try (Connection conn = getConnection();
+			 PreparedStatement st = conn.prepareStatement("SELECT idConcurso, fechaDeInicioInscripcion, fechaDeFinInscripcion FROM Concursos;");
+			 ResultSet res = st.executeQuery()) {
+			while (res.next())
+				lista.add(deResultSet(res));
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return lista;
 	}
 
 	// Auxiliares
@@ -72,8 +96,7 @@ public class ConcursoDAOJDBC extends ObjetoJDBC implements ObjetoDAO<Concurso> {
 	private Concurso deResultSet(ResultSet res) throws SQLException {
 		return new Concurso(
 				res.getString("idConcurso"),
-				registro -> {
-				},
+				this.persistencia,
 				res.getObject("fechaDeInicioInscripcion", LocalDateTime.class),
 				res.getObject("fechaDeFinInscripcion", LocalDateTime.class),
 				LocalDateTime::now

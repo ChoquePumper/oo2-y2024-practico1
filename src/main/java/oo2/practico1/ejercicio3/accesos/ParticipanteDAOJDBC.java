@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 import oo2.practico1.ejercicio1.Participante;
@@ -54,8 +55,16 @@ public class ParticipanteDAOJDBC extends ObjetoJDBC implements ObjetoDAO<Partici
 
 	@Override
 	public List<Participante> findAll() {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Unimplemented method 'findAll'");
+		List<Participante> lista = new ArrayList<>();
+		try (Connection conn = getConnection();
+			 PreparedStatement st = conn.prepareStatement("SELECT idParticipante, nombre, puntos FROM Participantes;");
+			 ResultSet res = st.executeQuery()) {
+			while (res.next())
+				lista.add(deResultSet(res));
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return lista;
 	}
 
 	// Auxiliares
