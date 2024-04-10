@@ -16,6 +16,10 @@ public class ParticipanteDAOJDBC extends ObjetoJDBC implements ObjetoDAO<Partici
 		//TODO Auto-generated constructor stub
 	}
 
+	public ParticipanteDAOJDBC(String subprotocolo, String subnombre, String user, String password) {
+		super(subprotocolo, subnombre, user, password);
+	}
+
 	@Override
 	public void create(Participante obj) {
 		// TODO Auto-generated method stub

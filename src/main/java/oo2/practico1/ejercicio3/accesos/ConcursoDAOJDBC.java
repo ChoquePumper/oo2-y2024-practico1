@@ -22,6 +22,10 @@ public class ConcursoDAOJDBC extends ObjetoJDBC implements ObjetoDAO<Concurso> {
 		//TODO Auto-generated constructor stub
 	}
 
+	public ConcursoDAOJDBC(String subprotocolo, String subnombre, String user, String password) {
+		super(subprotocolo, subnombre, user, password);
+	}
+
 	/**
 	 * @param subprotocolo
 	 * @param subnombre
@@ -29,6 +33,11 @@ public class ConcursoDAOJDBC extends ObjetoJDBC implements ObjetoDAO<Concurso> {
 	 */
 	public ConcursoDAOJDBC(String subprotocolo, String subnombre, Persistencia persistencia) {
 		this(subprotocolo, subnombre);
+		this.persistencia = Objects.requireNonNull(persistencia);
+	}
+
+	public ConcursoDAOJDBC(String subprotocolo, String subnombre, Persistencia persistencia, String user, String password) {
+		super(subprotocolo, subnombre, user, password);
 		this.persistencia = Objects.requireNonNull(persistencia);
 	}
 

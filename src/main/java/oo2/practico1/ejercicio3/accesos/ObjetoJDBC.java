@@ -15,6 +15,7 @@ import java.util.regex.Pattern;
 public abstract class ObjetoJDBC {
 	private final String subprotocolo;
 	private final String subnombre;
+	private String user = "", password = "";
 
 	private final String lineaUrlJDBC;
 	// Ejemplo de UrlJDBC: "jdbc:mysql://servidor:3306/schema"
@@ -37,6 +38,12 @@ public abstract class ObjetoJDBC {
 		this.lineaUrlJDBC = String.format("jdbc:%s:%s", this.subprotocolo, this.subnombre);
 	}
 
+	public ObjetoJDBC(String subprotocolo, String subnombre, String user, String password) {
+		this(subprotocolo, subnombre);
+		this.user = validarDato(user, ObjetoJDBC::validarString);
+		this.password = validarDato(password, ObjetoJDBC::validarString);
+	}
+
 	private static boolean validarString(String s) {
 		return !(Objects.requireNonNull(s).isBlank());
 	}
@@ -55,10 +62,16 @@ public abstract class ObjetoJDBC {
 		return Pattern.matches("[a-zA-Z0-9]", nombre);
 	}
 
+	private boolean conUserPassword() {
+		return validarString(this.user) && validarString(this.password);
+	}
+
 	/**
 	 * Llamar a {@code DriverManager.getConnection()}
 	 */
 	protected Connection getConnection() throws SQLException {
+		if (conUserPassword())
+			return getConnection(user, password);
 		return DriverManager.getConnection(lineaUrlJDBC);
 		//return getConnection("root", "");
 	}
