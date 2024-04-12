@@ -25,7 +25,7 @@ public class RegistroCostoCalculadoDAOJDBC extends ObjetoJDBC implements ObjetoD
 	public void create(RegistroCostoCalculado registro) {
 		try (Connection conn = getConnection();
 			 PreparedStatement sent = conn.prepareStatement(
-					 "INSERT INTO CalculoCostoDePedido (fecha_hora, monto) values (?,?,?);")) {
+					 "INSERT INTO CalculoCostoDePedido (fecha_hora, monto) values (?,?);")) {
 			sent.setObject(1, registro.fechaHora());
 			sent.setFloat(2, registro.monto());
 			sent.executeUpdate();
