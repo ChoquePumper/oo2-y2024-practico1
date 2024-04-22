@@ -50,7 +50,7 @@ public class Concurso {
 		if (enPrimerDia(fecha))
 			participante.agregarPuntos(+10);
 
-		RegistroAConcurso registro = new RegistroAConcurso(fecha, participante.getNombre(), this.id);
+		RegistroAConcurso registro = new RegistroAConcurso(fecha, Integer.toString(participante.getId()), this.id);
 		this.persistencia.registrarInscripcion(registro);
 		//TODO: Enviar mail aquí?
 	}
