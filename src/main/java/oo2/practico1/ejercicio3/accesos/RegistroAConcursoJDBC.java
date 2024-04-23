@@ -11,16 +11,20 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class RegistroAConcursoJDBC extends ObjetoJDBC implements ObjetoDAO<RegistroAConcurso> {
-	
+
 	public RegistroAConcursoJDBC(String subprotocolo, String subnombre) {
 		super(subprotocolo, subnombre);
+	}
+
+	public RegistroAConcursoJDBC(String subprotocolo, String subnombre, String user, String password) {
+		super(subprotocolo, subnombre, user, password);
 	}
 
 	@Override
 	public void create(RegistroAConcurso registro) {
 		try (Connection conn = getConnection();
-			 PreparedStatement sent = conn.prepareStatement(
-					 "INSERT INTO RegistrosAConcursos (fechaRegistro, idParticipante, idConcurso) values (?,?,?);")) {
+		     PreparedStatement sent = conn.prepareStatement(
+				     "INSERT INTO RegistrosAConcursos (fechaRegistro, idParticipante, idConcurso) values (?,?,?);")) {
 			sent.setObject(1, registro.fechaHora());
 			sent.setString(2, registro.idParticipante());
 			sent.setString(3, registro.idConcurso());
@@ -51,8 +55,8 @@ public class RegistroAConcursoJDBC extends ObjetoJDBC implements ObjetoDAO<Regis
 	@Override
 	public RegistroAConcurso find(String id) {
 		try (Connection conn = getConnection();
-			 PreparedStatement st = conn.prepareStatement("SELECT fechaRegistro, idParticipante, idConcurso FROM RegistrosAConcursos WHERE idRegistro = ? ;");
-			 ResultSet res = setearDatos(st, id).executeQuery()) {
+		     PreparedStatement st = conn.prepareStatement("SELECT fechaRegistro, idParticipante, idConcurso FROM RegistrosAConcursos WHERE idRegistro = ? ;");
+		     ResultSet res = setearDatos(st, id).executeQuery()) {
 			if (res.next())
 				return deResultSet(res);
 		} catch (SQLException e) {
@@ -65,8 +69,8 @@ public class RegistroAConcursoJDBC extends ObjetoJDBC implements ObjetoDAO<Regis
 	public List<RegistroAConcurso> findAll() {
 		List<RegistroAConcurso> lista = new ArrayList<>();
 		try (Connection conn = getConnection();
-			 PreparedStatement st = conn.prepareStatement("SELECT fechaRegistro, idParticipante, idConcurso FROM RegistrosAConcursos;");
-			 ResultSet res = st.executeQuery()) {
+		     PreparedStatement st = conn.prepareStatement("SELECT fechaRegistro, idParticipante, idConcurso FROM RegistrosAConcursos;");
+		     ResultSet res = st.executeQuery()) {
 			while (res.next())
 				lista.add(deResultSet(res));
 		} catch (SQLException e) {
