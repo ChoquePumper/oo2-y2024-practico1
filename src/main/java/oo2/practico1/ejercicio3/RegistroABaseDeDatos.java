@@ -8,8 +8,8 @@ public class RegistroABaseDeDatos implements Persistencia {
 
 	private final RegistroAConcursoJDBC registroDAOJDBC;
 
-	public RegistroABaseDeDatos(String subprotocolo, String subnombre) {
-		this.registroDAOJDBC = new RegistroAConcursoJDBC(subprotocolo, subnombre);
+	public RegistroABaseDeDatos(String subprotocolo, String subnombre, String user, String password) {
+		this.registroDAOJDBC = new RegistroAConcursoJDBC(subprotocolo, subnombre, user, password);
 	}
 
 	@Override
