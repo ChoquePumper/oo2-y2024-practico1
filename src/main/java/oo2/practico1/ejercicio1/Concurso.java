@@ -15,18 +15,24 @@ public class Concurso {
 	private final LocalDateTime fechaDeInicioInscripcion;
 	private final LocalDateTime fechaDeFinInscripcion;
 	private final ProveedorFecha proveedor_fecha;
+	private final Notificador notificador;
 	// Cache
 	private final LocalDateTime cacheFechaLimitePrimerDia;
 
-	public Concurso(String id, Persistencia persistencia, LocalDateTime fechaDeInicio, LocalDateTime fechaDeFin, ProveedorFecha proveedor_fecha) {
+	public Concurso(String id, Persistencia persistencia, LocalDateTime fechaDeInicio, LocalDateTime fechaDeFin, ProveedorFecha proveedor_fecha, Notificador notificador) {
 		this.id = procesarString(id);
 		this.persistencia = Objects.requireNonNull(persistencia);
 		this.fechaDeInicioInscripcion = fechaDeInicio;
 		this.fechaDeFinInscripcion = fechaDeFin;
 		this.participantes = new ArrayList<Participante>();
 		this.proveedor_fecha = proveedor_fecha;
+		this.notificador = notificador;
 
 		this.cacheFechaLimitePrimerDia = fechaDeInicio.plusDays(1);
+	}
+
+	public Concurso(String id, Persistencia persistencia, LocalDateTime fechaDeInicio, LocalDateTime fechaDeFin, ProveedorFecha proveedor_fecha) {
+		this(id, persistencia, fechaDeInicio, fechaDeFin, proveedor_fecha, (r, d1) -> { /*Nada*/ });
 	}
 
 	private String procesarString(String s) {
@@ -47,12 +53,13 @@ public class Concurso {
 
 		agregarParticipante(participante);
 
-		if (enPrimerDia(fecha))
+		boolean fueEnPrimerDia = enPrimerDia(fecha);
+		if (fueEnPrimerDia)
 			participante.agregarPuntos(+10);
 
 		RegistroAConcurso registro = new RegistroAConcurso(fecha, Integer.toString(participante.getId()), this.id);
 		this.persistencia.registrarInscripcion(registro);
-		//TODO: Enviar mail aquí?
+		this.notificador.notificar(registro, fueEnPrimerDia);
 	}
 
 	boolean enPrimerDia(LocalDateTime fecha) {
